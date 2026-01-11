@@ -9,16 +9,14 @@ const progressBar = document.getElementById("progressBar");
 const progressContainer = document.querySelector(".progress-container");
 const intervalInput = document.getElementById("breakInterval");
 
-/* ===== статистика ===== */
+/* Статистика */
 const totalBreaksEl = document.getElementById("totalBreaks");
 const totalTimeEl = document.getElementById("totalTime");
 const lastBreakEl = document.getElementById("lastBreak");
 
 intervalInput.value = localStorage.getItem("breakInterval") || 45;
 
-/* ==========================
-   УПРАЖНЕНИЯ (ПОДРОБНЫЕ)
-========================== */
+/* Описание упражнений */
 const exercises = [
   {
     title: "🔄 Круговые движения глазами",
@@ -83,9 +81,7 @@ const exercises = [
   }
 ];
 
-/* ==========================
-   ВСПОМОГАТЕЛЬНОЕ
-========================== */
+/* Функции для расчета */
 function shuffle(arr) {
   return [...arr].sort(() => Math.random() - 0.5);
 }
@@ -96,18 +92,14 @@ function formatTime(ms) {
   return m > 0 ? `${m} мин ${s % 60} сек` : `${s} сек`;
 }
 
-/* ==========================
-   СТАТИСТИКА
-========================== */
+/* Блок статистики */
 function updateStats() {
   totalBreaksEl.textContent = analytics.totalBreaks;
   totalTimeEl.textContent = Math.floor(analytics.totalSeconds / 60);
   lastBreakEl.textContent = analytics.lastBreak;
 }
 
-/* ==========================
-   ТАЙМЕР АКТИВНОСТИ
-========================== */
+/* Таймер */
 setInterval(() => {
   seconds++;
   analytics.totalSeconds++;
@@ -120,9 +112,7 @@ setInterval(() => {
   updateStats();
 }, 1000);
 
-/* ==========================
-   УВЕДОМЛЕНИЕ
-========================== */
+/* Уведомление */
 function scheduleNotification(ms) {
   if (!("Notification" in window)) return;
 
@@ -142,9 +132,7 @@ function scheduleNotification(ms) {
   }, ms);
 }
 
-/* ==========================
-   ЛОГИКА УПРАЖНЕНИЙ
-========================== */
+/* Основная логика для упражнений */
 let shuffled = [];
 let index = 0;
 let timeout;
@@ -187,9 +175,7 @@ function finishSession() {
   scheduleNotification(intervalMs);
 }
 
-/* ==========================
-   СОБЫТИЯ
-========================== */
+/* События при определенном исходе */
 startBtn.onclick = () => {
   const now = Date.now();
 
